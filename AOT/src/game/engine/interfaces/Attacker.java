@@ -1,5 +1,8 @@
 package game.engine.interfaces;
 
-public class Attacker {
+//for all objects that can attack
+public interface Attacker {
 
+	//retireve the damage the attacker inflicts
+	int getDamage();
 }
