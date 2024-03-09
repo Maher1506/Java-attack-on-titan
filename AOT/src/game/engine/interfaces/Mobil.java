@@ -1,5 +1,5 @@
 package game.engine.interfaces;
 
-public class Mobil {
+public interface Mobil {
 
 }

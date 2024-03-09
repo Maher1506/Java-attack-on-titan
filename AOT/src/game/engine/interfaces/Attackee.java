@@ -1,5 +1,5 @@
 package game.engine.interfaces;
 
-public class Attackee {
+public interface Attackee {
 
 }
