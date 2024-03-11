@@ -1,5 +1,6 @@
 package game.engine.weapons.factory;
 
+import game.engine.dataloader.DataLoader;
 import game.engine.weapons.WeaponRegistry;
 
 import java.io.IOException;
@@ -11,7 +12,7 @@ public class WeaponFactory {
 	
 	public WeaponFactory() throws IOException
 	{
-		weaponShop = new HashMap();
+		weaponShop = DataLoader.readWeaponRegistry();
 	}
 
 	public HashMap<Integer, WeaponRegistry> getWeaponShop() {

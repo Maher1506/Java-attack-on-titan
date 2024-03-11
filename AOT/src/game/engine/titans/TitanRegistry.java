@@ -58,5 +58,4 @@ public class TitanRegistry {
 				+ resourcesValue + ", dangerLevel=" + dangerLevel + "]";
 	}
 	
-	
 }

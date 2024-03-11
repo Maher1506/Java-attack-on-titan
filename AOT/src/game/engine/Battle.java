@@ -1,4 +1,4 @@
-/*package game.engine;
+package game.engine;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,8 +12,9 @@ import game.engine.weapons.factory.WeaponFactory;
 
 
 public class Battle {
-	private final int[][] PHASES_APPROACHING_TITANS;
-	private final int WALL_BASE_HEALTH = 10000;
+	private static final int[][] PHASES_APPROACHING_TITANS;
+	private static final int WALL_BASE_HEALTH = 10000;
+	
 	private int numberOfTurns;
 	private int resourcesGathered;
 	private BattlePhase battlePhase;
@@ -21,6 +22,7 @@ public class Battle {
 	private int score;
 	private int titanSpawnDistance;
 	private WeaponFactory weaponFactory;
+	
 	private final HashMap<Integer, TitanRegistry> titansArchives;
 	private final ArrayList<Titan> approachingTitans;
 	private final PriorityQueue<Lane> lanes;
@@ -28,14 +30,14 @@ public class Battle {
 	
 	public Battle(int numberOfTurns, int score, int titanSpawnDistance, int initialNumOfLanes,
 			int initialResourcesPerLane) throws IOException  
-			{
+	{
 		this.numberOfTurns = numberOfTurns;
 		this.score = score;
 		this.titanSpawnDistance = titanSpawnDistance;
 		this.resourcesGathered =  initialResourcesPerLane* initialNumOfLanes;
 		this.numberOfTitansPerTurn = 1;
 		this.battlePhase = BattlePhase.EARLY;
-			}
+	}
 
 	public int getNumberOfTurns() {
 		return numberOfTurns;
@@ -118,4 +120,4 @@ public class Battle {
 		
 	}
 
-}*/
+}
