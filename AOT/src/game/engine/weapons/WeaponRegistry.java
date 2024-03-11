@@ -54,6 +54,4 @@ public class WeaponRegistry {
 				+ ", damage=" + damage + ", name=" + name + ", minRange="
 				+ minRange + ", maxRange=" + maxRange + "]";
 	}
-	
-	
 }
