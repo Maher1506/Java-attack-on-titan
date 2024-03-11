@@ -34,9 +34,15 @@ public class Lane implements Comparable<Lane>{
 	{
 		return dangerLevel;
 	}
-	//implement getter for priorityqueue
-	//implement getter for arraylist
 	
+	public PriorityQueue<Titan> getTitans() {
+		return titans;
+	}
+
+	public ArrayList<Weapon> getWeapons() {
+		return weapons;
+	}
+
 	public int compareTo(Lane o)
 	{
 		return this.dangerLevel - o.dangerLevel;
