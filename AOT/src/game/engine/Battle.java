@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
+import game.engine.dataloader.DataLoader;
 import game.engine.lanes.Lane;
 import game.engine.titans.Titan;
 import game.engine.titans.TitanRegistry;
@@ -12,7 +13,7 @@ import game.engine.weapons.factory.WeaponFactory;
 
 
 public class Battle {
-	private static final int[][] PHASES_APPROACHING_TITANS;
+	//private static final int[][] PHASES_APPROACHING_TITANS;
 	private static final int WALL_BASE_HEALTH = 10000;
 	
 	private int numberOfTurns;
@@ -21,30 +22,44 @@ public class Battle {
 	private int numberOfTitansPerTurn;
 	private int score;
 	private int titanSpawnDistance;
-	private WeaponFactory weaponFactory;
 	
+	private final WeaponFactory weaponFactory;
 	private final HashMap<Integer, TitanRegistry> titansArchives;
 	private final ArrayList<Titan> approachingTitans;
 	private final PriorityQueue<Lane> lanes;
 	private final ArrayList<Lane> originalLanes;
 	
 	public Battle(int numberOfTurns, int score, int titanSpawnDistance, int initialNumOfLanes,
-			int initialResourcesPerLane) throws IOException  
-	{
+			int initialResourcesPerLane) throws IOException
+	{	
 		this.numberOfTurns = numberOfTurns;
+		this.resourcesGathered = initialResourcesPerLane * initialNumOfLanes;
+		this.battlePhase = BattlePhase.EARLY;
+		this.numberOfTitansPerTurn = 1;
 		this.score = score;
 		this.titanSpawnDistance = titanSpawnDistance;
-		this.resourcesGathered =  initialResourcesPerLane* initialNumOfLanes;
-		this.numberOfTitansPerTurn = 1;
-		this.battlePhase = BattlePhase.EARLY;
+		
+		this.weaponFactory = new WeaponFactory();
+		this.titansArchives = DataLoader.readTitanRegistry();
+		this.approachingTitans = new ArrayList();
+		this.lanes = new PriorityQueue();
+		this.originalLanes = new ArrayList();
 	}
 
-	public int getNumberOfTurns() {
-		return numberOfTurns;
+	/*public int[][] getPHASES_APPROACHING_TITANS() {
+		return PHASES_APPROACHING_TITANS;
+	}*/
+
+	public int getWALL_BASE_HEALTH() {
+		return WALL_BASE_HEALTH;
 	}
 
 	public void setNumberOfTurns(int numberOfTurns) {
 		this.numberOfTurns = numberOfTurns;
+	}
+
+	public int getNumberOfTurns() {
+		return numberOfTurns;
 	}
 
 	public int getResourcesGathered() {
@@ -85,14 +100,6 @@ public class Battle {
 
 	public void setTitanSpawnDistance(int titanSpawnDistance) {
 		this.titanSpawnDistance = titanSpawnDistance;
-	}
-
-	public int[][] getPHASES_APPROACHING_TITANS() {
-		return PHASES_APPROACHING_TITANS;
-	}
-
-	public int getWALL_BASE_HEALTH() {
-		return WALL_BASE_HEALTH;
 	}
 
 	public WeaponFactory getWeaponFactory() {
