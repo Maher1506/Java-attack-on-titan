@@ -49,6 +49,14 @@ public class TitanRegistry {
 	public int getDangerLevel() {
 		return dangerLevel;
 	}
+
+	@Override
+	public String toString() {
+		return "TitanRegistry [code=" + code + ", baseHealth=" + baseHealth
+				+ ", baseDamage=" + baseDamage + ", heightInMeters="
+				+ heightInMeters + ", speed=" + speed + ", resourcesValue="
+				+ resourcesValue + ", dangerLevel=" + dangerLevel + "]";
+	}
 	
 	
 }

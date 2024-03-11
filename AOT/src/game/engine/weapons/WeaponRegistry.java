@@ -48,4 +48,12 @@ public class WeaponRegistry {
 	public int getMaxRange() {
 		return maxRange;
 	}
+	@Override
+	public String toString() {
+		return "WeaponRegistry [code=" + code + ", price=" + price
+				+ ", damage=" + damage + ", name=" + name + ", minRange="
+				+ minRange + ", maxRange=" + maxRange + "]";
+	}
+	
+	
 }
