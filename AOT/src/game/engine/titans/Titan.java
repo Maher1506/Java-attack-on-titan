@@ -80,9 +80,9 @@ public abstract class Titan implements Attackee, Attacker, Mobil, Comparable<Tit
 		return this.dangerLevel;
 	}
 	
-	public int compareTo(Titan t)
+	public int compareTo(Titan o)
 	{
-		return this.distanceFromBase - t.distanceFromBase;
+		return this.distanceFromBase - o.distanceFromBase;
 	}
 	
 	
