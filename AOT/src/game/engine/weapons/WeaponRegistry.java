@@ -30,4 +30,22 @@ public class WeaponRegistry {
 		this.minRange = minRange;
 		this.maxRange = maxRange;
 	}
+	public int getCode() {
+		return code;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public int getDamage() {
+		return damage;
+	}
+	public String getName() {
+		return name;
+	}
+	public int getMinRange() {
+		return minRange;
+	}
+	public int getMaxRange() {
+		return maxRange;
+	}
 }
