@@ -8,4 +8,8 @@ public class PiercingCannon extends Weapon{
 		super(baseDamage);
 	}
 	
+	public int getWeaponCode()
+	{
+		return WEAPON_CODE;
+	}
 }

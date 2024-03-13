@@ -1,5 +1,7 @@
 package game.engine;
 
+import game.engine.base.Wall;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +15,9 @@ import game.engine.weapons.factory.WeaponFactory;
 
 
 public class Battle {
-	//private static final int[][] PHASES_APPROACHING_TITANS;
+	private static final int[][] PHASES_APPROACHING_TITANS = {{1,1,1,2,1,3,4},
+															  {2,2,2,1,3,3,4},
+															  {4,4,4,4,4,4,4}};
 	private static final int WALL_BASE_HEALTH = 10000;
 	
 	private int numberOfTurns;
@@ -46,11 +50,11 @@ public class Battle {
 		this.originalLanes = new ArrayList();
 	}
 
-	/*public int[][] getPHASES_APPROACHING_TITANS() {
+	public static int[][] getPhasesApproachingTitans() {
 		return PHASES_APPROACHING_TITANS;
-	}*/
+	}
 
-	public int getWALL_BASE_HEALTH() {
+	public static int getWallBaseHealth() {
 		return WALL_BASE_HEALTH;
 	}
 
@@ -124,7 +128,13 @@ public class Battle {
 	
 	private void initializeLanes(int numOfLanes)
 	{
-		
+		for(int i = 0; i<numOfLanes; i++)
+		{
+			Wall w = new Wall(WALL_BASE_HEALTH);
+			Lane l = new Lane(w);
+			originalLanes.add(l);
+			lanes.add(l);
+		}
 	}
 
 }

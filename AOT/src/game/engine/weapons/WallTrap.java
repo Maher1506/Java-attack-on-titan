@@ -7,5 +7,9 @@ public class WallTrap extends Weapon{
 	public WallTrap(int baseDamage){
 		super(baseDamage);
 	}
-
+	
+	public int getWeaponCode()
+	{
+		return WEAPON_CODE;
+	}
 }

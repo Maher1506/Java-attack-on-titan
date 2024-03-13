@@ -11,4 +11,8 @@ public class AbnormalTitan extends Titan {
 				resourcesValue, dangerLevel);
 	}
 
+	public static int getTitanCode() {
+		return TITAN_CODE;
+	}
+
 }
