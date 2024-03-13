@@ -13,7 +13,7 @@ public abstract class Titan implements Attackee, Attacker, Mobil, Comparable<Tit
 	private final int resourcesValue;
 	private final int dangerLevel;
 	
-	Titan(int baseHealth, int baseDamage, int heightInMeters, 
+	public Titan(int baseHealth, int baseDamage, int heightInMeters, 
 		  int distanceFromBase, int speed, int resourcesValue, int dangerLevel)
 	{
 		this.baseHealth = baseHealth;
@@ -38,7 +38,14 @@ public abstract class Titan implements Attackee, Attacker, Mobil, Comparable<Tit
 	
 	public void setCurrentHealth(int health)
 	{
-		this.currentHealth = health;
+		if (health >= 0)
+		{
+			this.currentHealth = health;
+		}
+		else
+		{
+			this.currentHealth = 0;
+		}	
 	}
 	
 	public int getDamage()
@@ -71,7 +78,7 @@ public abstract class Titan implements Attackee, Attacker, Mobil, Comparable<Tit
 		this.speed = speed;
 	}
 
-	public int getResourceValue()
+	public int getResourcesValue()
 	{
 		return this.resourcesValue; 
 	}

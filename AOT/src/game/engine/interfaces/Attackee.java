@@ -8,5 +8,5 @@ public interface Attackee {
 	//changes attackee's health
 	void setCurrentHealth(int health);
 	//retrieves resource value of the attackee
-	int getResourceValue();
+	int getResourcesValue();
 }
