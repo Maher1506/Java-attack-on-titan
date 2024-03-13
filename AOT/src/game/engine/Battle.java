@@ -136,5 +136,12 @@ public class Battle {
 			lanes.add(l);
 		}
 	}
+	public static void main(String[] args) throws IOException
+	{
+		Battle b = new Battle(3, 100,100, 4,100);
+		b.initializeLanes(4);
+		System.out.println(b.originalLanes.size());
+		System.out.println(b.lanes.size());
+	}
 
 }
