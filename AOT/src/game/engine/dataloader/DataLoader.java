@@ -83,4 +83,11 @@ public class DataLoader {
 		
 		return weaponHashMap;
 	}
+	public static String getTitansFileName() {
+		return TITANS_FILE_NAME;
+	}
+	public static String getWeaponsFileName() {
+		return WEAPONS_FILE_NAME;
+	}
+	
 }

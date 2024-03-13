@@ -50,11 +50,11 @@ public class Battle {
 		this.originalLanes = new ArrayList();
 	}
 
-	public int[][] getPHASES_APPROACHING_TITANS() {
+	public static int[][] getPhasesApproachingTitans() {
 		return PHASES_APPROACHING_TITANS;
 	}
 
-	public int getWALL_BASE_HEALTH() {
+	public static int getWallBaseHealth() {
 		return WALL_BASE_HEALTH;
 	}
 
