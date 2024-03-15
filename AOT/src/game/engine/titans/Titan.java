@@ -65,7 +65,13 @@ public abstract class Titan implements Attackee, Attacker, Mobil, Comparable<Tit
 	
 	public void setDistance(int distance)
 	{
-		this.distanceFromBase = distance;
+		if (distance >= 0)
+		{
+			this.distanceFromBase = distance;		}
+		else
+		{
+			this.distanceFromBase = 0;
+		}	
 	}
 	
 	public int getSpeed()
@@ -75,7 +81,14 @@ public abstract class Titan implements Attackee, Attacker, Mobil, Comparable<Tit
 	
 	public void setSpeed(int speed)
 	{
-		this.speed = speed;
+		if (speed >= 0)
+		{
+			this.speed = speed;
+		}
+		else
+		{
+			this.speed = 0;
+		}
 	}
 
 	public int getResourcesValue()

@@ -11,4 +11,10 @@ public class InvalidLaneException extends GameActionException {
 	public InvalidLaneException(String message) {
 		super(message);
 	}
+
+	public static String getMsg() {
+		return MSG;
+	}
+	
+	
 }

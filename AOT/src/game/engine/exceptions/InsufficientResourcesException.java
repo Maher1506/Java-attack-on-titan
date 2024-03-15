@@ -14,10 +14,22 @@ public class InsufficientResourcesException extends GameActionException{
 		this.resourcesProvided = resourcesProvided;
 	}
 	
+	
+	
+	public static String getMsg() {
+		return MSG;
+	}
 	public int getResourcesProvided() {
 		return resourcesProvided;
 	}
 	public void setResourcesProvided(int resourcesProvided) {
-		this.resourcesProvided = resourcesProvided;
+		if (resourcesProvided >= 0)
+		{
+			this.resourcesProvided = resourcesProvided;	
+		}
+		else
+		{
+			this.resourcesProvided = 0;
+		}
 	}
 }
