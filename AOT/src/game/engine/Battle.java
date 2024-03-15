@@ -19,7 +19,7 @@ public class Battle {
 															  {2,2,2,1,3,3,4},
 															  {4,4,4,4,4,4,4}};
 	private static final int WALL_BASE_HEALTH = 10000;
-	
+		
 	private int numberOfTurns;
 	private int resourcesGathered;
 	private BattlePhase battlePhase;
@@ -35,7 +35,7 @@ public class Battle {
 	
 	public Battle(int numberOfTurns, int score, int titanSpawnDistance, int initialNumOfLanes,
 			int initialResourcesPerLane) throws IOException
-	{	
+	{			
 		this.numberOfTurns = numberOfTurns;
 		this.resourcesGathered = initialResourcesPerLane * initialNumOfLanes;
 		this.battlePhase = BattlePhase.EARLY;
@@ -50,6 +50,25 @@ public class Battle {
 		this.originalLanes = new ArrayList();
 	}
 
+	public static void main(String[] args) throws IOException
+	{
+		Battle b = new Battle(3, 100,100, 8,100);
+		b.initializeLanes(4);
+		System.out.println(b.originalLanes.size());
+		System.out.println(b.lanes.size());
+	}
+
+	private void initializeLanes(int numOfLanes)
+	{;
+		for(int i = 0; i<numOfLanes; i++)
+		{
+			Wall w = new Wall(WALL_BASE_HEALTH);
+			Lane l = new Lane(w);
+			originalLanes.add(l);
+			lanes.add(l);
+		}
+	}
+
 	public static int[][] getPhasesApproachingTitans() {
 		return PHASES_APPROACHING_TITANS;
 	}
@@ -59,7 +78,15 @@ public class Battle {
 	}
 
 	public void setNumberOfTurns(int numberOfTurns) {
-		this.numberOfTurns = numberOfTurns;
+		if (numberOfTurns >= 0)
+		{
+
+			this.numberOfTurns = numberOfTurns;
+		}
+		else
+		{
+			this.numberOfTurns = 0;
+		}
 	}
 
 	public int getNumberOfTurns() {
@@ -71,7 +98,14 @@ public class Battle {
 	}
 
 	public void setResourcesGathered(int resourcesGathered) {
-		this.resourcesGathered = resourcesGathered;
+		if (resourcesGathered >= 0)
+		{
+			this.resourcesGathered = resourcesGathered;
+		}
+		else
+		{
+			this.resourcesGathered = 0;
+		}
 	}
 
 	public BattlePhase getBattlePhase() {
@@ -87,7 +121,15 @@ public class Battle {
 	}
 
 	public void setNumberOfTitansPerTurn(int numberOfTitansPerTurn) {
-		this.numberOfTitansPerTurn = numberOfTitansPerTurn;
+		
+		if (resourcesGathered > 0)
+		{
+			this.numberOfTitansPerTurn = numberOfTitansPerTurn;	
+		}
+		else
+		{
+			this.numberOfTitansPerTurn = 1;
+		}
 	}
 
 	public int getScore() {
@@ -95,7 +137,14 @@ public class Battle {
 	}
 
 	public void setScore(int score) {
-		this.score = score;
+		if (score >= 0)
+		{
+			this.score = score;
+		}
+		else
+		{
+			this.score = 0;
+		}
 	}
 
 	public int getTitanSpawnDistance() {
@@ -103,7 +152,15 @@ public class Battle {
 	}
 
 	public void setTitanSpawnDistance(int titanSpawnDistance) {
-		this.titanSpawnDistance = titanSpawnDistance;
+		if (titanSpawnDistance >= 0)
+		{
+
+			this.titanSpawnDistance = titanSpawnDistance;
+		}
+		else
+		{
+			this.titanSpawnDistance = 0;
+		}
 	}
 
 	public WeaponFactory getWeaponFactory() {
@@ -124,24 +181,6 @@ public class Battle {
 
 	public ArrayList<Lane> getOriginalLanes() {
 		return originalLanes;
-	}	
-	
-	private void initializeLanes(int numOfLanes)
-	{
-		for(int i = 0; i<numOfLanes; i++)
-		{
-			Wall w = new Wall(WALL_BASE_HEALTH);
-			Lane l = new Lane(w);
-			originalLanes.add(l);
-			lanes.add(l);
-		}
-	}
-	public static void main(String[] args) throws IOException
-	{
-		Battle b = new Battle(3, 100,100, 4,100);
-		b.initializeLanes(4);
-		System.out.println(b.originalLanes.size());
-		System.out.println(b.lanes.size());
 	}
 
 }
