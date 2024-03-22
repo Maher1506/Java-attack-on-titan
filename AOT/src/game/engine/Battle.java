@@ -48,6 +48,8 @@ public class Battle {
 		this.approachingTitans = new ArrayList();
 		this.lanes = new PriorityQueue();
 		this.originalLanes = new ArrayList();
+		
+		initializeLanes(initialNumOfLanes);
 	}
 
 	public static void main(String[] args) throws IOException
