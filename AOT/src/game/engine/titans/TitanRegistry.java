@@ -1,7 +1,7 @@
 package game.engine.titans;
 
 public class TitanRegistry {
-	
+
 	private final int code;
 	private int baseHealth;
 	private int baseDamage;
@@ -9,10 +9,10 @@ public class TitanRegistry {
 	private int speed;
 	private int resourcesValue;
 	private int dangerLevel;
-	
-	public TitanRegistry(int code, int baseHealth, int baseDamage, int heightInMeters, int speed,
-			int resourcesValue, int dangerLevel)
-	{
+
+	public TitanRegistry(int code, int baseHealth, int baseDamage, int heightInMeters, int speed, int resourcesValue,
+			int dangerLevel) {
+
 		this.code = code;
 		this.baseHealth = baseHealth;
 		this.baseDamage = baseDamage;
@@ -50,12 +50,4 @@ public class TitanRegistry {
 		return dangerLevel;
 	}
 
-	@Override
-	public String toString() {
-		return "TitanRegistry [code=" + code + ", baseHealth=" + baseHealth
-				+ ", baseDamage=" + baseDamage + ", heightInMeters="
-				+ heightInMeters + ", speed=" + speed + ", resourcesValue="
-				+ resourcesValue + ", dangerLevel=" + dangerLevel + "]";
-	}
-	
 }
