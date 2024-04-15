@@ -18,13 +18,14 @@ public class Battle {
 		{		{ 1, 1, 1, 2, 1, 3, 4 },
 				{ 2, 2, 2, 1, 3, 3, 4 },
 				{ 4, 4, 4, 4, 4, 4, 4 } };
-
 	private final static int WALL_BASE_HEALTH =10000 ;
+	
 	private final WeaponFactory weaponFactory;
 	private final HashMap<Integer, TitanRegistry> titansArchives;
 	private final  ArrayList<Titan> approachingTitans;
 	private	final PriorityQueue<Lane> lanes;
 	private final ArrayList<Lane> originalLanes;
+	
 	private int numberOfTurns;
 	private int resourcesGathered;
 	private BattlePhase battlePhase;
@@ -32,7 +33,36 @@ public class Battle {
 	private int score;
 	private int titanSpawnDistance;
 
-
+	public Battle(int numberOfTurns, int score, int titanSpawnDistance, int initialNumOfLanes,
+			int initialResourcesPerLane) throws IOException {
+		
+		this.numberOfTurns = numberOfTurns;
+		this.score = score;
+		this.titanSpawnDistance = titanSpawnDistance;
+		this.battlePhase = BattlePhase.EARLY;
+		this.numberOfTitansPerTurn = 1;
+		
+		resourcesGathered = initialNumOfLanes*initialResourcesPerLane;
+		titansArchives = DataLoader.readTitanRegistry();
+		
+		approachingTitans = new ArrayList<Titan>();
+		lanes = new PriorityQueue<Lane>();
+		originalLanes = new ArrayList<Lane>();
+		weaponFactory = new WeaponFactory();
+		
+		initializeLanes(initialNumOfLanes);
+	}
+	
+	private void initializeLanes(int numOfLanes) {
+			
+			for(int i = 0 ; i < numOfLanes;i++) {
+				Lane l = new Lane(new Wall(WALL_BASE_HEALTH));
+				originalLanes.add(l);
+				lanes.add(l);
+				
+			}
+	}
+	
 	public int getNumberOfTurns() {
 		return numberOfTurns;
 	}
@@ -108,34 +138,4 @@ public class Battle {
 	public ArrayList<Lane> getOriginalLanes() {
 		return originalLanes;
 	}
-
-	
-
-	public Battle(int numberOfTurns, int score, int titanSpawnDistance, int initialNumOfLanes,
-			int initialResourcesPerLane) throws IOException {
-		this.numberOfTurns = numberOfTurns;
-		this.score = score;
-		this.titanSpawnDistance = titanSpawnDistance;
-		this.battlePhase = BattlePhase.EARLY;
-		this.numberOfTitansPerTurn = 1;
-		resourcesGathered = initialNumOfLanes*initialResourcesPerLane;
-		titansArchives = DataLoader.readTitanRegistry();
-		approachingTitans = new ArrayList<Titan>();
-		lanes = new PriorityQueue<Lane>();
-		originalLanes = new ArrayList<Lane>();
-		weaponFactory = new WeaponFactory();
-		initializeLanes(initialNumOfLanes);
-	
-	}
-
-	private void initializeLanes(int numOfLanes) {
-		
-		for(int i = 0 ; i < numOfLanes;i++) {
-			Lane l = new Lane(new Wall(WALL_BASE_HEALTH));
-			originalLanes.add(l);
-			lanes.add(l);
-			
-		}
-}
-
 }
