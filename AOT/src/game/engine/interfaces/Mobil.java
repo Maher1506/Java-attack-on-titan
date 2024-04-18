@@ -5,4 +5,28 @@ public interface Mobil {
 	void setDistance(int distance);
 	int getSpeed();
 	void setSpeed(int speed);
+	
+	default boolean hasReachedTarget()
+	{
+		if (getDistance() <= 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	default boolean move()
+	{
+		setDistance(getDistance() - getSpeed());
+		if (hasReachedTarget())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }

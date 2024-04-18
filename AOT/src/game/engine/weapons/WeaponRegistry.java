@@ -1,5 +1,10 @@
 package game.engine.weapons;
 
+import game.engine.titans.AbnormalTitan;
+import game.engine.titans.ArmoredTitan;
+import game.engine.titans.ColossalTitan;
+import game.engine.titans.PureTitan;
+
 public class WeaponRegistry {
 
 	private final int code;
@@ -14,7 +19,6 @@ public class WeaponRegistry {
 		this.price = price;
 	
 	}
-
 	public WeaponRegistry(int code, int price, int damage, String name) {
 		this.code = code;
 		this.price = price;
@@ -22,7 +26,6 @@ public class WeaponRegistry {
 		this.name = name;
 	
 	}
-
 	public WeaponRegistry(int code, int price, int damage, String name, int minRange, int maxRange) {
 		this.code = code;
 		this.price = price;
@@ -32,6 +35,21 @@ public class WeaponRegistry {
 		this.maxRange = maxRange;
 	}
 
+	public Weapon buildWeapon()
+	{
+		switch (getCode())
+		{
+			case 1: 
+				return new PiercingCannon(damage);
+			case 2:
+				return new SniperCannon(damage);
+			case 3:
+				return new VolleySpreadCannon(damage, minRange, maxRange);
+			default: 
+				return new WallTrap(damage);
+		}
+	}
+	
 	public int getCode() {
 		return code;
 	}
