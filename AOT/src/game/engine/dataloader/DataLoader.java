@@ -17,6 +17,7 @@ public class DataLoader {
 		BufferedReader br = new BufferedReader(new FileReader(TITANS_FILE_NAME));
 		HashMap<Integer, TitanRegistry> AllTitans = new HashMap<Integer, TitanRegistry>();
 		String line;
+		
 		while ((line = br.readLine()) != null) {
 			String[] data = line.split(",");
 			int code = Integer.parseInt(data[0]);
@@ -39,6 +40,7 @@ public class DataLoader {
 		BufferedReader br = new BufferedReader(new FileReader(WEAPONS_FILE_NAME));
 		HashMap<Integer, WeaponRegistry> AllWeapons = new HashMap<Integer, WeaponRegistry>();
 		String line;
+		
 		while ((line = br.readLine()) != null) {
 			String[] data = line.split(",");
 			int code = Integer.parseInt(data[0]);

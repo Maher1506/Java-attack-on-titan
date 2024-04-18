@@ -21,7 +21,26 @@ public class TitanRegistry {
 		this.resourcesValue = resourcesValue;
 		this.dangerLevel = dangerLevel;
 	}
-
+	
+	public Titan spawnTitan(int distanceFromBase)
+	{
+		switch (getCode())
+		{
+			case 1: 
+				return new PureTitan(baseHealth, baseDamage, heightInMeters, distanceFromBase,
+									 speed, resourcesValue, dangerLevel);
+			case 2:
+				return new AbnormalTitan(baseHealth, baseDamage, heightInMeters, distanceFromBase,
+						 speed, resourcesValue, dangerLevel);
+			case 3:
+				return new ArmoredTitan(baseHealth, baseDamage, heightInMeters, distanceFromBase,
+						 speed, resourcesValue, dangerLevel);
+			default: 
+				return new ColossalTitan(baseHealth, baseDamage, heightInMeters, distanceFromBase,
+						 speed, resourcesValue, dangerLevel);
+		}
+	}
+	
 	public int getCode() {
 		return code;
 	}
