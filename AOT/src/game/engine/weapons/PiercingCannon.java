@@ -9,7 +9,7 @@ import java.util.PriorityQueue;
 public class PiercingCannon extends Weapon {
 	public final static int WEAPON_CODE = 1;
 
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		AbnormalTitan t1 = new AbnormalTitan( 100, 0, 0, 100, 0,10,0); //d
 		AbnormalTitan t2 = new AbnormalTitan( 200, 0, 0, 4000, 0,10,0);
@@ -36,7 +36,8 @@ public class PiercingCannon extends Weapon {
 			System.out.println(t.getDistance());
 			System.out.println(t.getCurrentHealth());
 		}
-	}
+	}*/
+	
 	public PiercingCannon(int baseDamage) {
 		super(baseDamage);
 	}
