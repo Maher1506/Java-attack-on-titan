@@ -45,8 +45,12 @@ public class PiercingCannon extends Weapon {
 	@Override
 	public int turnAttack(PriorityQueue<Titan> laneTitans){
 		int resourcesGained = 0;
+		if(laneTitans.isEmpty()){
+			resourcesGained = 0;
+		}
+		else {
 		PriorityQueue<Titan> duplicate = laneTitans;
-		PriorityQueue<Titan> temp = new PriorityQueue<Titan>();;
+		PriorityQueue<Titan> temp = new PriorityQueue<Titan>();
 
 		int pqSize = duplicate.size();
 		for (int i = 0; i < pqSize; i++)
@@ -74,6 +78,7 @@ public class PiercingCannon extends Weapon {
 		for(Titan t : temp)
 		{
 			laneTitans.offer(t);
+		}
 		}
 		return resourcesGained;
 	}
