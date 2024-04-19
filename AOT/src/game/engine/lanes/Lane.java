@@ -21,31 +21,38 @@ public class Lane implements Comparable<Lane> {
 	}
 
 	public void addTitan(Titan titan){
-		 titans.offer(titan);       // offer de bt3ml add gowa PriorityQueue
-	 }
+		// offer adds element to PriorityQueue
+		titans.offer(titan);       
+	}
 	public void addWeapon(Weapon weapon){
-		weapons.add(weapon);       // add de bt3ml add gowa arraylist 
+		weapons.add(weapon);       
 	}
 	
+	public void moveLaneTitans(){
+		 for (Titan titan : titans){
+			 if (!titan.hasReachedTarget()){
+				 titan.move();
+			 }
+		 }
+	 }
+
 	public  int performLaneTitansAttacks(){
-		int number_of_resources_gathered = 0;
-		for (Titan titan : titans){
+		int resourcesGathered = 0;
+		for (Titan titan : titans) //CANNOT LOOP THROUGH PriorityQueue
+		{
 			if (titan.hasReachedTarget()){
-				 number_of_resources_gathered += titan.attack(laneWall);
+				 resourcesGathered += titan.attack(laneWall);
 			}
 		}
-		return number_of_resources_gathered;
+		return resourcesGathered;
 	 }
 	
 	 public int performLaneWeaponsAttacks(){
-		 int number_of_resources_gathered = 0;
-		 for (int i = 0; i < weapons.size(); i++){
-			 
-			 for (Titan titan : titans){
-				 number_of_resources_gathered += weapons.get(i).attack(titan);  
-		 	}
+		 int resourcesGathered = 0;
+		 for (Weapon weapon : weapons){
+			 //weapon.turnAttack(titans);
 		 }
-		 return number_of_resources_gathered;
+		 return resourcesGathered;
 	 }
 	 
 	 public boolean isLaneLost(){
@@ -57,20 +64,13 @@ public class Lane implements Comparable<Lane> {
 	 }
 	 
 	 public void updateLaneDangerLevel(){
-		 for (Titan titan : titans){
-			 dangerLevel =+ titan.getDangerLevel();
+		 for (Titan titan : titans)  //CANNOT LOOP THROUGH PriorityQueue
+		 {
+			 dangerLevel += titan.getDangerLevel();
 		 }
 	 }
 	 
-	 public void moveLaneTitans(){
-		 for (Titan titan : titans){
-			 if (titan.getDistance()!=0){
-				 titan.move();
-			 }
-		 }
-	 }
-
-	public int getDangerLevel() {
+	 public int getDangerLevel() {
 		return dangerLevel;
 	}
 	public void setDangerLevel(int dangerLevel) {

@@ -7,9 +7,12 @@ import java.util.PriorityQueue;
 
 import game.engine.base.Wall;
 import game.engine.dataloader.DataLoader;
+import game.engine.exceptions.InsufficientResourcesException;
+import game.engine.exceptions.InvalidLaneException;
 import game.engine.lanes.Lane;
 import game.engine.titans.Titan;
 import game.engine.titans.TitanRegistry;
+import game.engine.weapons.WeaponRegistry;
 import game.engine.weapons.factory.WeaponFactory;
 
 public class Battle {
@@ -61,6 +64,48 @@ public class Battle {
 				lanes.add(l);
 				
 			}
+	}
+	public void refillApproachingTitans()
+	{
+		int[] earlyCodes = PHASES_APPROACHING_TITANS[0];
+		int[] intenseCodes = PHASES_APPROACHING_TITANS[1];
+		int[] grumblingCodes = PHASES_APPROACHING_TITANS[2];
+	
+		switch(battlePhase)
+		{
+			case EARLY:
+				for (int i = 0; i < earlyCodes.length; i++)
+				{
+					TitanRegistry chosenRegistry = titansArchives.get(earlyCodes[i]);
+					approachingTitans.add(chosenRegistry.spawnTitan(titanSpawnDistance));
+				}
+			case INTENSE:
+				for (int i = 0; i < intenseCodes.length; i++)
+				{
+					TitanRegistry chosenRegistry = titansArchives.get(intenseCodes[i]);
+					approachingTitans.add(chosenRegistry.spawnTitan(titanSpawnDistance));
+				}			
+			case GRUMBLING:
+				for (int i = 0; i < grumblingCodes.length; i++)
+				{
+					TitanRegistry chosenRegistry = titansArchives.get(grumblingCodes[i]);
+					approachingTitans.add(chosenRegistry.spawnTitan(titanSpawnDistance));
+				}
+		}
+	}
+	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException,
+	InvalidLaneException
+	{
+		
+	}
+	public void passTurn()
+	{
+		
+	}
+	private void addTurnTitansToLane()
+	{
+		Lane leastDangerLevel = lanes.peek();
+		if (app)
 	}
 	
 	public int getNumberOfTurns() {

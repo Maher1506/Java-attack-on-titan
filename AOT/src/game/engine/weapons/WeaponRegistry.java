@@ -1,10 +1,5 @@
 package game.engine.weapons;
 
-import game.engine.titans.AbnormalTitan;
-import game.engine.titans.ArmoredTitan;
-import game.engine.titans.ColossalTitan;
-import game.engine.titans.PureTitan;
-
 public class WeaponRegistry {
 
 	private final int code;
