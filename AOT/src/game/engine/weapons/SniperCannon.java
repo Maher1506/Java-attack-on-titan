@@ -10,6 +10,8 @@ public class SniperCannon extends Weapon {
 	public SniperCannon(int baseDamage) {
 		super(baseDamage);
 	}
+	
+	@Override
 	public int turnAttack(PriorityQueue<Titan> laneTitans){
 		int resourcesGained = 0;
 		if (laneTitans.isEmpty())

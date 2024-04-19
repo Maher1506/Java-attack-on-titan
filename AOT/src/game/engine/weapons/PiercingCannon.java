@@ -10,7 +10,8 @@ public class PiercingCannon extends Weapon {
 	public PiercingCannon(int baseDamage) {
 		super(baseDamage);
 	}
-
+	
+	@Override
 	public int turnAttack(PriorityQueue<Titan> laneTitans){
 		int resourcesGained = 0;
 		if (laneTitans.isEmpty())
