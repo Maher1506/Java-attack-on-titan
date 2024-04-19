@@ -7,5 +7,19 @@ public class ColossalTitan extends Titan {
 			int resourcesValue, int dangerLevel) {
 		super(baseHealth, baseDamage, heightInMeters, distanceFromBase, speed, resourcesValue, dangerLevel);
 	}
-
+	
+	@Override
+	public boolean move()
+	{
+		setDistance(getDistance() - getSpeed());
+		if (hasReachedTarget())
+		{
+			return true;
+		}
+		else
+		{
+			setSpeed(getSpeed() + 1);
+			return false;
+		}
+	}
 }

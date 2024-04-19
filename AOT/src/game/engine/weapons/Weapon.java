@@ -9,9 +9,8 @@ public abstract class Weapon implements Attacker {
 	public Weapon(int baseDamage) {
 		this.baseDamage = baseDamage;
 	}
-
+	
 	public int getDamage() {
 		return baseDamage;
 	}
-
 }
