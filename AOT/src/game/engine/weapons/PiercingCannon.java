@@ -45,41 +45,43 @@ public class PiercingCannon extends Weapon {
 	@Override
 	public int turnAttack(PriorityQueue<Titan> laneTitans){
 		int resourcesGained = 0;
+		
 		if(laneTitans.isEmpty()){
-			resourcesGained = 0;
+			return 0;
 		}
-		else {
-		PriorityQueue<Titan> duplicate = laneTitans;
-		PriorityQueue<Titan> temp = new PriorityQueue<Titan>();
-
-		int pqSize = duplicate.size();
-		for (int i = 0; i < pqSize; i++)
+		else 
 		{
-			if(i < 5)
+			PriorityQueue<Titan> duplicate = laneTitans;
+			PriorityQueue<Titan> temp = new PriorityQueue<Titan>();
+
+			int pqSize = duplicate.size();
+			for (int i = 0; i < pqSize; i++)
 			{
-				int resources = this.attack(duplicate.peek());
-				if(resources != 0)
+				if(i < 5)
 				{
-					resourcesGained += resources;
-					duplicate.remove();
+					int resources = this.attack(duplicate.peek());
+					if(duplicate.peek().isDefeated())
+					{
+						resourcesGained += resources;
+						duplicate.remove();
+					}
+					else
+					{
+						temp.offer(duplicate.poll());
+					}
 				}
 				else
 				{
 					temp.offer(duplicate.poll());
 				}
 			}
-			else
+			
+			laneTitans.clear();
+			for(Titan t : temp)
 			{
-				temp.offer(duplicate.poll());
+				laneTitans.offer(t);
 			}
+			return resourcesGained;
 		}
-		
-		laneTitans.clear();
-		for(Titan t : temp)
-		{
-			laneTitans.offer(t);
-		}
-		}
-		return resourcesGained;
 	}
 }
