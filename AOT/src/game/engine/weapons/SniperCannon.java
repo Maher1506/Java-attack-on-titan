@@ -15,17 +15,19 @@ public class SniperCannon extends Weapon {
 	public int turnAttack(PriorityQueue<Titan> laneTitans){
 
 		int resourcesGained = 0;
+		
 		if(laneTitans.isEmpty()){
-			resourcesGained = 0;
+			return 0;
 		}
-		else {
-		int resources = this.attack(laneTitans.peek());
-		if(resources != 0)
+		else 
 		{
-			resourcesGained += resources;
-			laneTitans.remove();
+			int resources = this.attack(laneTitans.peek());
+			if(laneTitans.peek().isDefeated())
+			{
+				resourcesGained += resources;
+				laneTitans.remove();
+			}
+			return resourcesGained;
 		}
-		}
-		return resourcesGained;
 	}
 }
