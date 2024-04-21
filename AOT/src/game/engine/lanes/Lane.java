@@ -14,7 +14,7 @@ public class Lane implements Comparable<Lane> {
 	private final Wall laneWall;
 	private int dangerLevel;
 
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		AbnormalTitan t1 = new AbnormalTitan( 0, 0, 0, 100, 0,0,0);
 		AbnormalTitan t2 = new AbnormalTitan( 0, 0, 0, 4000, 0,0,0);
@@ -56,7 +56,7 @@ public class Lane implements Comparable<Lane> {
 		{
 			System.out.println(t.getDistance());
 		}
-	}
+	}*/
 	
 	public Lane(Wall laneWall) {
 		this.laneWall = laneWall;
@@ -95,7 +95,7 @@ public class Lane implements Comparable<Lane> {
 	 public int performLaneWeaponsAttacks(){
 		 int resourcesGathered = 0;
 		 for (Weapon weapon : weapons){
-			 weapon.turnAttack(titans);
+			 resourcesGathered += weapon.turnAttack(titans);
 		 }
 		 return resourcesGathered;
 	 }
@@ -109,6 +109,7 @@ public class Lane implements Comparable<Lane> {
 	 }
 	 
 	 public void updateLaneDangerLevel(){
+		 dangerLevel = 0;
 		 for (Titan titan : titans)  
 		 {
 			 dangerLevel += titan.getDangerLevel();

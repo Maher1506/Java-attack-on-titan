@@ -59,7 +59,7 @@ public class PiercingCannon extends Weapon {
 			{
 				if(i < 5)
 				{
-					int resources = this.attack(duplicate.peek());
+					int resources = duplicate.peek().takeDamage(this.getDamage()); 
 					if(duplicate.peek().isDefeated())
 					{
 						resourcesGained += resources;

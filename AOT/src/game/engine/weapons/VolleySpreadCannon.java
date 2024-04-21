@@ -10,7 +10,7 @@ public class VolleySpreadCannon extends Weapon {
 	private final int minRange;
 	private final int maxRange;
 
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		AbnormalTitan t1 = new AbnormalTitan( 100, 0, 0, 100, 0,10,0); //d
 		AbnormalTitan t2 = new AbnormalTitan( 200, 0, 0, 4000, 0,10,0);
@@ -38,7 +38,7 @@ public class VolleySpreadCannon extends Weapon {
 			System.out.println(t.getCurrentHealth());
 			System.out.println();
 		}
-	}
+	}*/
 	
 	public VolleySpreadCannon(int baseDamage, int minRange, int maxRange) {
 		super(baseDamage);
@@ -49,6 +49,7 @@ public class VolleySpreadCannon extends Weapon {
 	public int turnAttack(PriorityQueue<Titan> laneTitans){
 		
 		int resourcesGained = 0;
+		
 		if(laneTitans.isEmpty()){
 			return 0;
 		}
@@ -62,7 +63,7 @@ public class VolleySpreadCannon extends Weapon {
 			{
 				if(duplicate.peek().getDistance() >= getMinRange() && duplicate.peek().getDistance() <= getMaxRange())
 				{
-					int resources = this.attack(duplicate.peek());
+					int resources = duplicate.peek().takeDamage(this.getDamage()); 
 					if(duplicate.peek().isDefeated())
 					{
 						resourcesGained += resources;
