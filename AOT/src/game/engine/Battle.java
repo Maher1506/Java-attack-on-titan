@@ -99,7 +99,6 @@ public class Battle {
 	{
 		
 	}
-	
 	public void passTurn()
 	{
 		
@@ -121,7 +120,13 @@ public class Battle {
 		
 		approachingTitans.remove(0);
 	}
-	
+	private void moveTitans()
+	{
+		for(Lane l : lanes)
+		{
+			l.moveLaneTitans();
+		}
+	}
 	public int getNumberOfTurns() {
 		return numberOfTurns;
 	}
