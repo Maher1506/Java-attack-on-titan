@@ -171,6 +171,23 @@ public class Battle {
 			}
 		}
 	}
+	private void performTurn()
+	{
+		
+	}
+	public boolean isGameOver()
+	{
+		boolean gameState = true;
+		for(Lane l : lanes)
+		{
+			if(!l.isLaneLost())
+			{
+				gameState = false;
+				return gameState;
+			}
+		}
+		return gameState;
+	}
 	public int getNumberOfTurns() {
 		return numberOfTurns;
 	}
