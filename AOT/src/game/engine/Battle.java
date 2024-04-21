@@ -97,11 +97,24 @@ public class Battle {
 	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException,
 	InvalidLaneException
 	{
+		for (Lane lane1 : lanes) {
+			if (lane1.isLaneLost()) {
+	            throw new InvalidLaneException("Cannot deploy weapon to a lost lane.");
+	        }
+	    }
 		
 	}
 	public void passTurn()
 	{
-		
+		for (Lane lane : lanes) {
+	        lane.moveLaneTitans();
+	        lane.performLaneTitansAttacks();
+	        lane.performLaneWeaponsAttacks();
+	        addTurnTitansToLane();
+	        
+	    }
+	 updateLanesDangerLevels();
+	 finalizeTurns();
 	}
 	private void addTurnTitansToLane()
 	{
@@ -173,7 +186,15 @@ public class Battle {
 	}
 	private void performTurn()
 	{
-		
+		 for (Lane lane : lanes) {
+		        lane.moveLaneTitans();
+		        lane.performLaneTitansAttacks();
+		        lane.performLaneWeaponsAttacks();
+		        this.addTurnTitansToLane();
+		        
+		    }
+		 updateLanesDangerLevels();
+		 finalizeTurns();
 	}
 	public boolean isGameOver()
 	{

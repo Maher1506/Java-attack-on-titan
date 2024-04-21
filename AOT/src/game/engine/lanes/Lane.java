@@ -74,11 +74,13 @@ public class Lane implements Comparable<Lane> {
 	}
 	
 	public void moveLaneTitans(){
-		 for (Titan titan : titans){
-			 if (!titan.hasReachedTarget()){
+	    if(titans == null){}
+	    else{
+	    for (Titan titan : titans){
+			  if (!titan.hasReachedTarget()){
 				 titan.move();
 			 }
-		 }
+		 }}
 	 }
 
 	public  int performLaneTitansAttacks(){

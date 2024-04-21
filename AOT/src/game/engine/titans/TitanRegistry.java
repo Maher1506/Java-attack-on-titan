@@ -35,9 +35,11 @@ public class TitanRegistry {
 			case 3:
 				return new ArmoredTitan(baseHealth, baseDamage, heightInMeters, distanceFromBase,
 						 speed, resourcesValue, dangerLevel);
-			default: 
+			case 4: 
 				return new ColossalTitan(baseHealth, baseDamage, heightInMeters, distanceFromBase,
 						 speed, resourcesValue, dangerLevel);
+				default : 
+					return null;
 		}
 	}
 	
