@@ -42,6 +42,7 @@ public class WeaponRegistry {
 				return new VolleySpreadCannon(damage, minRange, maxRange);
 			default: 
 				return new WallTrap(damage);
+				
 		}
 	}
 	
