@@ -93,6 +93,7 @@ public class Battle {
 				}
 		}
 	}
+	
 	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException,
 	InvalidLaneException
 	{
@@ -104,10 +105,89 @@ public class Battle {
 	}
 	private void addTurnTitansToLane()
 	{
+		if (approachingTitans.isEmpty())
+		{
+			refillApproachingTitans();
+		}
+		
 		Lane leastDangerLevel = lanes.peek();
-		if (app)
+		Titan titanToAdd = approachingTitans.get(0);
+		
+		for(int i = 0; i < numberOfTitansPerTurn; i++)
+		{
+			leastDangerLevel.addTitan(titanToAdd);
+		}
+		
+		approachingTitans.remove(0);
 	}
-	
+	private void moveTitans()
+	{
+		for(Lane l : lanes)
+		{
+			l.moveLaneTitans();
+		}
+	}
+	private int performWeaponsAttacks()
+	{
+		int resourcesGathered = 0;
+		for(Lane l : lanes)
+		{
+			resourcesGathered += l.performLaneWeaponsAttacks();
+		}
+		return resourcesGathered;
+	}
+	private int performTitansAttacks()
+	{
+		int resourcesGathered = 0;
+		for(Lane l : lanes)
+		{
+			resourcesGathered += l.performLaneTitansAttacks();
+		}
+		return resourcesGathered;
+	}
+	private void updateLanesDangerLevels()
+	{
+		for(Lane l : lanes)
+		{
+			l.updateLaneDangerLevel();
+		}
+	}
+	private void finalizeTurns()
+	{
+		if(numberOfTurns < 15)
+		{
+			battlePhase = BattlePhase.EARLY;
+		}
+		else if(numberOfTurns >= 15 && numberOfTurns < 30)
+		{
+			battlePhase = BattlePhase.INTENSE;
+		}
+		else if(numberOfTurns >= 30)
+		{
+			battlePhase = BattlePhase.GRUMBLING;
+			if(numberOfTurns > 30 && numberOfTurns % 5 == 0)
+			{
+				numberOfTitansPerTurn = numberOfTitansPerTurn * 2;
+			}
+		}
+	}
+	private void performTurn()
+	{
+		
+	}
+	public boolean isGameOver()
+	{
+		boolean gameState = true;
+		for(Lane l : lanes)
+		{
+			if(!l.isLaneLost())
+			{
+				gameState = false;
+				return gameState;
+			}
+		}
+		return gameState;
+	}
 	public int getNumberOfTurns() {
 		return numberOfTurns;
 	}
