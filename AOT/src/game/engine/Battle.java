@@ -93,19 +93,33 @@ public class Battle {
 				}
 		}
 	}
+	
 	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException,
 	InvalidLaneException
 	{
 		
 	}
+	
 	public void passTurn()
 	{
 		
 	}
 	private void addTurnTitansToLane()
 	{
+		if (approachingTitans.isEmpty())
+		{
+			refillApproachingTitans();
+		}
+		
 		Lane leastDangerLevel = lanes.peek();
-		if (app)
+		Titan titanToAdd = approachingTitans.get(0);
+		
+		for(int i = 0; i < numberOfTitansPerTurn; i++)
+		{
+			leastDangerLevel.addTitan(titanToAdd);
+		}
+		
+		approachingTitans.remove(0);
 	}
 	
 	public int getNumberOfTurns() {
