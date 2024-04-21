@@ -21,7 +21,7 @@ public class SniperCannon extends Weapon {
 		}
 		else 
 		{
-			int resources = this.attack(laneTitans.peek());
+			int resources = laneTitans.peek().takeDamage(this.getDamage()); 
 			if(laneTitans.peek().isDefeated())
 			{
 				resourcesGained += resources;
