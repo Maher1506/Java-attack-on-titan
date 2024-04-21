@@ -127,6 +127,50 @@ public class Battle {
 			l.moveLaneTitans();
 		}
 	}
+	private int performWeaponsAttacks()
+	{
+		int resourcesGathered = 0;
+		for(Lane l : lanes)
+		{
+			resourcesGathered += l.performLaneWeaponsAttacks();
+		}
+		return resourcesGathered;
+	}
+	private int performTitansAttacks()
+	{
+		int resourcesGathered = 0;
+		for(Lane l : lanes)
+		{
+			resourcesGathered += l.performLaneTitansAttacks();
+		}
+		return resourcesGathered;
+	}
+	private void updateLanesDangerLevels()
+	{
+		for(Lane l : lanes)
+		{
+			l.updateLaneDangerLevel();
+		}
+	}
+	private void finalizeTurns()
+	{
+		if(numberOfTurns < 15)
+		{
+			battlePhase = BattlePhase.EARLY;
+		}
+		else if(numberOfTurns >= 15 && numberOfTurns < 30)
+		{
+			battlePhase = BattlePhase.INTENSE;
+		}
+		else if(numberOfTurns >= 30)
+		{
+			battlePhase = BattlePhase.GRUMBLING;
+			if(numberOfTurns > 30 && numberOfTurns % 5 == 0)
+			{
+				numberOfTitansPerTurn = numberOfTitansPerTurn * 2;
+			}
+		}
+	}
 	public int getNumberOfTurns() {
 		return numberOfTurns;
 	}
