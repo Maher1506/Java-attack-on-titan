@@ -137,7 +137,10 @@ public class Battle {
 	{
 		for(Lane l : lanes)
 		{
-			l.moveLaneTitans();
+			if(!l.isLaneLost())
+			{
+				l.moveLaneTitans();
+			}			
 		}
 	}
 	private int performWeaponsAttacks()
@@ -145,7 +148,10 @@ public class Battle {
 		int resourcesGathered = 0;
 		for(Lane l : lanes)
 		{
-			resourcesGathered += l.performLaneWeaponsAttacks();
+			if(!l.isLaneLost())
+			{
+				resourcesGathered += l.performLaneWeaponsAttacks();
+			}
 		}
 		return resourcesGathered;
 	}
@@ -154,7 +160,10 @@ public class Battle {
 		int resourcesGathered = 0;
 		for(Lane l : lanes)
 		{
-			resourcesGathered += l.performLaneTitansAttacks();
+			if(!l.isLaneLost())
+			{
+				resourcesGathered += l.performLaneTitansAttacks();	
+			}
 		}
 		return resourcesGathered;
 	}
@@ -162,7 +171,10 @@ public class Battle {
 	{
 		for(Lane l : lanes)
 		{
-			l.updateLaneDangerLevel();
+			if(!l.isLaneLost())
+			{
+				l.updateLaneDangerLevel();
+			}
 		}
 	}
 	private void finalizeTurns()
