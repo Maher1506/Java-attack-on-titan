@@ -13,6 +13,7 @@ import game.engine.lanes.Lane;
 import game.engine.titans.Titan;
 import game.engine.titans.TitanRegistry;
 import game.engine.weapons.WeaponRegistry;
+import game.engine.weapons.factory.FactoryResponse;
 import game.engine.weapons.factory.WeaponFactory;
 
 public class Battle {
@@ -93,28 +94,27 @@ public class Battle {
 				}
 		}
 	}
-	
 	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException,
-	InvalidLaneException
+	InvalidLaneException, IOException
 	{
-		for (Lane lane1 : lanes) {
-			if (lane1.isLaneLost()) {
-	            throw new InvalidLaneException("Cannot deploy weapon to a lost lane.");
-	        }
-	    }
+		if(!lane.isLaneLost())
+		{
+			WeaponFactory wf = new WeaponFactory();
+			FactoryResponse resp = wf.buyWeapon(resourcesGathered, weaponCode);
+			lane.addWeapon(resp.getWeapon());
+			resourcesGathered = resp.getRemainingResources();
+			
+			performTurn();
+		}
+		else
+		{
+			throw new InvalidLaneException();
+		}
 		
 	}
 	public void passTurn()
 	{
-		for (Lane lane : lanes) {
-	        lane.moveLaneTitans();
-	        lane.performLaneTitansAttacks();
-	        lane.performLaneWeaponsAttacks();
-	        addTurnTitansToLane();
-	        
-	    }
-	 updateLanesDangerLevels();
-	 finalizeTurns();
+		performTurn();
 	}
 	private void addTurnTitansToLane()
 	{
@@ -186,15 +186,13 @@ public class Battle {
 	}
 	private void performTurn()
 	{
-		 for (Lane lane : lanes) {
-		        lane.moveLaneTitans();
-		        lane.performLaneTitansAttacks();
-		        lane.performLaneWeaponsAttacks();
-		        this.addTurnTitansToLane();
-		        
-		    }
-		 updateLanesDangerLevels();
-		 finalizeTurns();
+		moveTitans();
+		performWeaponsAttacks();
+		performTitansAttacks();
+		addTurnTitansToLane();
+		
+		updateLanesDangerLevels();
+		finalizeTurns();
 	}
 	public boolean isGameOver()
 	{
