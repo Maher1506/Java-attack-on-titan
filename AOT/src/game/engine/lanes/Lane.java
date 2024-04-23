@@ -74,14 +74,20 @@ public class Lane implements Comparable<Lane> {
 	}
 	
 	public void moveLaneTitans(){
-	    if(titans == null){}
-	    else{
-	    for (Titan titan : titans){
-			  if (!titan.hasReachedTarget()){
-				 titan.move();
-			 }
-		 }}
-	 }
+		for (Titan titan : titans){
+			if (!titan.hasReachedTarget()){
+				titan.move();
+	   		}
+	    }
+		
+		PriorityQueue<Titan> temp = new PriorityQueue<Titan>();
+		for(Titan t : titans)
+		{
+			temp.offer(t);
+		}
+		titans.clear();
+		titans.addAll(temp);
+	}
 
 	public  int performLaneTitansAttacks(){
 		int resourcesGathered = 0;

@@ -31,13 +31,14 @@ public class ColossalTitan extends Titan {
 	public boolean move()
 	{
 		setDistance(getDistance() - getSpeed());
+		setSpeed(getSpeed() + 1);
+		
 		if (hasReachedTarget())
 		{
 			return true;
 		}
 		else
 		{
-			setSpeed(getSpeed() + 1);
 			return false;
 		}
 	}

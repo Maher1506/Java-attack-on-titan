@@ -5,7 +5,7 @@ public interface Attacker {
 
 	default int attack(Attackee target)
 	{
-		target.setCurrentHealth(target.getCurrentHealth() - getDamage());
+		target.takeDamage(getDamage());
 		if (target.isDefeated())
 		{
 			return target.getResourcesValue();
