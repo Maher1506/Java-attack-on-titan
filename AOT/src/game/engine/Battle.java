@@ -56,6 +56,32 @@ public class Battle {
 		
 		initializeLanes(initialNumOfLanes);
 	}
+	public static void main(String[] args) throws IOException {
+		Battle b = new Battle(0,0,0,0,0);
+		b.setBattlePhase(BattlePhase.EARLY);
+		b.refillApproachingTitans();
+		for(Titan t : b.approachingTitans)
+		{
+			System.out.println(t.getDamage());
+		}
+		System.out.println();
+		
+		b.setBattlePhase(BattlePhase.INTENSE);
+		b.refillApproachingTitans();
+		for(Titan t : b.approachingTitans)
+		{
+			System.out.println(t.getDamage());
+		}
+		System.out.println();
+		
+		b.setBattlePhase(BattlePhase.GRUMBLING);
+		b.refillApproachingTitans();
+		for(Titan t : b.approachingTitans)
+		{
+			System.out.println(t.getDamage());
+		}
+		System.out.println();
+	}
 	
 	private void initializeLanes(int numOfLanes) {
 			
@@ -68,6 +94,8 @@ public class Battle {
 	}
 	public void refillApproachingTitans()
 	{
+		approachingTitans.clear();
+		
 		int[] earlyCodes = PHASES_APPROACHING_TITANS[0];
 		int[] intenseCodes = PHASES_APPROACHING_TITANS[1];
 		int[] grumblingCodes = PHASES_APPROACHING_TITANS[2];
@@ -80,35 +108,39 @@ public class Battle {
 					TitanRegistry chosenRegistry = titansArchives.get(earlyCodes[i]);
 					approachingTitans.add(chosenRegistry.spawnTitan(titanSpawnDistance));
 				}
+				break;
 			case INTENSE:
 				for (int i = 0; i < intenseCodes.length; i++)
 				{
 					TitanRegistry chosenRegistry = titansArchives.get(intenseCodes[i]);
 					approachingTitans.add(chosenRegistry.spawnTitan(titanSpawnDistance));
-				}			
+				}
+				break;
 			case GRUMBLING:
 				for (int i = 0; i < grumblingCodes.length; i++)
 				{
 					TitanRegistry chosenRegistry = titansArchives.get(grumblingCodes[i]);
 					approachingTitans.add(chosenRegistry.spawnTitan(titanSpawnDistance));
 				}
+				break;
 		}
 	}
 	public void purchaseWeapon(int weaponCode, Lane lane) throws InsufficientResourcesException,
 	InvalidLaneException, IOException
 	{
-		if(!lane.isLaneLost())
+		if(lane.isLaneLost() || !lanes.contains(lane))
 		{
-			WeaponFactory wf = new WeaponFactory();
-			FactoryResponse resp = wf.buyWeapon(resourcesGathered, weaponCode);
+			throw new InvalidLaneException();
+
+		}
+		else
+		{
+		
+			FactoryResponse resp = weaponFactory.buyWeapon(resourcesGathered, weaponCode);
 			lane.addWeapon(resp.getWeapon());
 			resourcesGathered = resp.getRemainingResources();
 			
 			performTurn();
-		}
-		else
-		{
-			throw new InvalidLaneException();
 		}
 		
 	}
@@ -123,50 +155,98 @@ public class Battle {
 			refillApproachingTitans();
 		}
 		
-		Lane leastDangerLevel = lanes.peek();
-		Titan titanToAdd = approachingTitans.get(0);
-		
 		for(int i = 0; i < numberOfTitansPerTurn; i++)
-		{
+		{	
+			Lane leastDangerLevel = lanes.peek();
+			Titan titanToAdd = approachingTitans.get(0);
+			
 			leastDangerLevel.addTitan(titanToAdd);
+			approachingTitans.remove(0);
+			
+			if (approachingTitans.isEmpty())
+			{
+				refillApproachingTitans();
+			}
 		}
-		
-		approachingTitans.remove(0);
 	}
 	private void moveTitans()
 	{
 		for(Lane l : lanes)
 		{
-			l.moveLaneTitans();
+			if(!l.isLaneLost())
+			{
+				l.moveLaneTitans();
+			}			
 		}
+		
+		PriorityQueue<Lane> t = new PriorityQueue<Lane>();
+		//t.addAll(lanes);
+		for(Lane l : lanes)
+		{
+			t.offer(l);
+		}
+		lanes.clear();
+		lanes.addAll(t);
 	}
 	private int performWeaponsAttacks()
 	{
-		int resourcesGathered = 0;
+		int resourcesGained = 0;
 		for(Lane l : lanes)
 		{
-			resourcesGathered += l.performLaneWeaponsAttacks();
+			if(!l.isLaneLost())
+			{
+				resourcesGained += l.performLaneWeaponsAttacks();
+			}
 		}
-		return resourcesGathered;
+		
+		resourcesGathered += resourcesGained;
+		score += resourcesGained;
+		return resourcesGained;
 	}
 	private int performTitansAttacks()
 	{
-		int resourcesGathered = 0;
-		for(Lane l : lanes)
+		PriorityQueue<Lane> temp = new PriorityQueue<Lane>();
+		int resources = 0;
+		
+		while(!lanes.isEmpty())
 		{
-			resourcesGathered += l.performLaneTitansAttacks();
+			Lane l = lanes.poll();
+			resources += l.performLaneTitansAttacks();
+			if(!l.isLaneLost())
+			{
+				temp.add(l);
+			}
 		}
-		return resourcesGathered;
+		for(Lane l : temp)
+		{
+			lanes.offer(l);
+		}
+		//lanes.addAll(temp);
+		return resources;
+		
+		
 	}
 	private void updateLanesDangerLevels()
 	{
 		for(Lane l : lanes)
 		{
-			l.updateLaneDangerLevel();
+			if(!l.isLaneLost())
+			{
+				l.updateLaneDangerLevel();
+			}
 		}
+		PriorityQueue<Lane> t = new PriorityQueue<Lane>();
+		for(Lane l : lanes)
+		{
+			t.offer(l);
+		}
+		lanes.clear();
+		lanes.addAll(t);
 	}
+	
 	private void finalizeTurns()
 	{
+		numberOfTurns++;
 		if(numberOfTurns < 15)
 		{
 			battlePhase = BattlePhase.EARLY;
@@ -175,13 +255,17 @@ public class Battle {
 		{
 			battlePhase = BattlePhase.INTENSE;
 		}
-		else if(numberOfTurns >= 30)
+		else if(numberOfTurns == 30)
 		{
 			battlePhase = BattlePhase.GRUMBLING;
-			if(numberOfTurns > 30 && numberOfTurns % 5 == 0)
-			{
-				numberOfTitansPerTurn = numberOfTitansPerTurn * 2;
-			}
+			
+			
+		}
+		else if(numberOfTurns > 30 && numberOfTurns % 5 == 0)
+		{
+			numberOfTitansPerTurn = numberOfTitansPerTurn * 2;
+			battlePhase = BattlePhase.GRUMBLING;
+		
 		}
 	}
 	private void performTurn()
