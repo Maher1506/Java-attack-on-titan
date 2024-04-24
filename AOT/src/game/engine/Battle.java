@@ -56,7 +56,7 @@ public class Battle {
 		
 		initializeLanes(initialNumOfLanes);
 	}
-	public static void main(String[] args) throws IOException {
+	/*public static void main(String[] args) throws IOException {
 		Battle b = new Battle(0,0,0,0,0);
 		b.setBattlePhase(BattlePhase.EARLY);
 		b.refillApproachingTitans();
@@ -81,7 +81,7 @@ public class Battle {
 			System.out.println(t.getDamage());
 		}
 		System.out.println();
-	}
+	}*/
 	
 	private void initializeLanes(int numOfLanes) {
 			
