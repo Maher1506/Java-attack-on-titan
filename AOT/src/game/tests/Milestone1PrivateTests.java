@@ -231,7 +231,7 @@ public class Milestone1PrivateTests {
 
 	@Test(timeout = 100)
 	public void testConstructorInitializationPureTitan() throws Exception {
-		int baseHealth = 100;
+		int baseHealth = (int) (Math.random() * 100);
 		int baseDamage = (int) (Math.random() * 100);
 		int heightInMeters = (int) (Math.random() * 5);
 		int distanceFromBase = (int) (Math.random() * 5);
@@ -315,11 +315,11 @@ public class Milestone1PrivateTests {
 
 		int new_distance = (int) (Math.random() * 5);
 		setterMethod.invoke(pureTitan,new_distance);
-		assertEquals(getterMethod.invoke(pureTitan,null), new_distance);
+		assertEquals(new_distance, getterMethod.invoke(pureTitan,null));
 
-		int negative_distance = (int) (Math.random() * 5) * -1;
+		int negative_distance =  -1;
 		setterMethod.invoke(pureTitan,negative_distance);
-		assertEquals(getterMethod.invoke(pureTitan,null), 0);
+		assertEquals(0, getterMethod.invoke(pureTitan,null));
 	}
 	
 	

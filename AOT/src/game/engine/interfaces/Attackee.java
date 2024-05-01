@@ -1,32 +1,23 @@
 package game.engine.interfaces;
 
-public interface Attackee {
-	
+public interface Attackee
+{
 	int getCurrentHealth();
+
 	void setCurrentHealth(int health);
+
 	int getResourcesValue();
-	
+
 	default boolean isDefeated()
 	{
-		if (getCurrentHealth() <= 0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return getCurrentHealth() <= 0;
 	}
-	default int takeDamage(int damage)
+
+	default int takeDamage(int damage) // returns resources won if the attackee dies
 	{
-		setCurrentHealth(getCurrentHealth() - damage);
-		if (isDefeated())
-		{
-			return getResourcesValue();
-		}
-		else
-		{
-			return 0;
-		}
+		this.setCurrentHealth(getCurrentHealth() - damage);
+
+		return isDefeated() ? getResourcesValue() : 0;
 	}
+
 }

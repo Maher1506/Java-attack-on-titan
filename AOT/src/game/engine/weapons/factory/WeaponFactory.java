@@ -5,46 +5,52 @@ import java.util.HashMap;
 
 import game.engine.dataloader.DataLoader;
 import game.engine.exceptions.InsufficientResourcesException;
+import game.engine.weapons.Weapon;
 import game.engine.weapons.WeaponRegistry;
 
-public class WeaponFactory {
-
+public class WeaponFactory
+{
 	private final HashMap<Integer, WeaponRegistry> weaponShop;
 
-	public WeaponFactory() throws IOException {
+	public WeaponFactory() throws IOException
+	{
+		super();
 		weaponShop = DataLoader.readWeaponRegistry();
+	}
+
+	public HashMap<Integer, WeaponRegistry> getWeaponShop()
+	{
+		return weaponShop;
 	}
 
 	public FactoryResponse buyWeapon(int resources, int weaponCode) throws InsufficientResourcesException
 	{
-		WeaponRegistry intendedWeaponRegistry = weaponShop.get(weaponCode);
-		
-		if (resources >= intendedWeaponRegistry.getPrice())
-		{
-			return new FactoryResponse(intendedWeaponRegistry.buildWeapon(), 
-									   resources - intendedWeaponRegistry.getPrice());
-		}
-		else
+		WeaponRegistry registry = this.getWeaponShop().get(weaponCode);
+
+		if (resources < registry.getPrice())
 		{
 			throw new InsufficientResourcesException(resources);
 		}
+
+		Weapon weapon = registry.buildWeapon();
+		int remainingResources = resources - registry.getPrice();
+
+		return new FactoryResponse(weapon, remainingResources);
 	}
-	
+
 	public void addWeaponToShop(int code, int price)
 	{
-		weaponShop.put(code, new WeaponRegistry(code, price));
+		this.getWeaponShop().put(code, new WeaponRegistry(code, price));
 	}
+
 	public void addWeaponToShop(int code, int price, int damage, String name)
 	{
-		weaponShop.put(code, new WeaponRegistry(code, price, damage, name));
+		this.getWeaponShop().put(code, new WeaponRegistry(code, price, damage, name));
 	}
-	public void addWeaponToShop(int code, int price, int damage, String name, 
-			int minRange, int maxRange)
+
+	public void addWeaponToShop(int code, int price, int damage, String name, int minRange, int maxRange)
 	{
-		weaponShop.put(code, new WeaponRegistry(code, price, damage, name, minRange, maxRange));
+		this.getWeaponShop().put(code, new WeaponRegistry(code, price, damage, name, minRange, maxRange));
 	}
-	
-	public HashMap<Integer, WeaponRegistry> getWeaponShop() {
-		return weaponShop;
-	}
+
 }
