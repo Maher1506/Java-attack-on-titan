@@ -1,45 +1,20 @@
 package game.engine.titans;
 
-public class ColossalTitan extends Titan {
-	public final static int TITAN_CODE = 4;
-	
-	/*public static void main(String[] args)
-	{
-		ColossalTitan c = new ColossalTitan(0,0,0,100,5,0,0);
-		c.move();
-		System.out.println(c.getDistance());
-		System.out.println(c.getSpeed());
-		System.out.println();
-		
-		c.move();
-		System.out.println(c.getDistance());
-		System.out.println(c.getSpeed());
-		System.out.println();
-		
-		c.move();
-		System.out.println(c.getDistance());
-		System.out.println(c.getSpeed());
-		System.out.println();
-	}*/
-	
+public class ColossalTitan extends Titan
+{
+	public static final int TITAN_CODE = 4;
+
 	public ColossalTitan(int baseHealth, int baseDamage, int heightInMeters, int distanceFromBase, int speed,
-			int resourcesValue, int dangerLevel) {
+			int resourcesValue, int dangerLevel)
+	{
 		super(baseHealth, baseDamage, heightInMeters, distanceFromBase, speed, resourcesValue, dangerLevel);
 	}
-	
+
 	@Override
 	public boolean move()
 	{
-		setDistance(getDistance() - getSpeed());
-		setSpeed(getSpeed() + 1);
-		
-		if (hasReachedTarget())
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		boolean moveResult = super.move();
+		this.setSpeed(this.getSpeed() + 1);
+		return moveResult;
 	}
 }

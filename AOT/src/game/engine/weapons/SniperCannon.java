@@ -1,33 +1,35 @@
 package game.engine.weapons;
 
-import game.engine.titans.Titan;
-
 import java.util.PriorityQueue;
 
-public class SniperCannon extends Weapon {
-	public final static int WEAPON_CODE = 2;
+import game.engine.titans.Titan;
 
-	public SniperCannon(int baseDamage) {
+public class SniperCannon extends Weapon
+{
+	public static final int WEAPON_CODE = 2;
+
+	public SniperCannon(int baseDamage)
+	{
 		super(baseDamage);
 	}
-	
-	@Override
-	public int turnAttack(PriorityQueue<Titan> laneTitans){
 
-		int resourcesGained = 0;
-		
-		if(laneTitans.isEmpty()){
-			return 0;
-		}
-		else 
+	@Override
+	public int turnAttack(PriorityQueue<Titan> laneTitans)
+	{
+		Titan closestTitan = laneTitans.peek();
+		int resourcesGathered = 0;
+
+		if (closestTitan != null)
 		{
-			int resources = laneTitans.peek().takeDamage(this.getDamage()); 
-			if(laneTitans.peek().isDefeated())
+			resourcesGathered += this.attack(closestTitan);
+
+			if (closestTitan.isDefeated())
 			{
-				resourcesGained += resources;
-				laneTitans.remove();
+				laneTitans.remove(closestTitan);
 			}
-			return resourcesGained;
 		}
+
+		return resourcesGathered;
 	}
+
 }
