@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.StartSceneController">
+   <center>
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="222.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startGameAction" prefHeight="48.0" prefWidth="136.0" text="Start Game">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Button>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Game Difficulty" textAlignment="CENTER">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+            <RadioButton fx:id="easyBtn" mnemonicParsing="false" selected="true" text="Easy">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="Difficulty" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="hardBtn" layoutX="280.0" layoutY="246.0" mnemonicParsing="false" text="Hard" toggleGroup="$Difficulty">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </RadioButton>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="TOP_CENTER" prefHeight="111.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Instructions: Tower defense (TD) is a subgenre of strategy games where the goal is to defend a player's territories or possessions by obstructing the enemy attackers or by stopping enemies from reaching the exits, usually achieved by placing defensive structures on or along their path of attack." textAlignment="CENTER" wrappingWidth="300.0" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
