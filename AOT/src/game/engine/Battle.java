@@ -15,6 +15,7 @@ import game.engine.titans.TitanRegistry;
 import game.engine.weapons.Weapon;
 import game.engine.weapons.factory.FactoryResponse;
 import game.engine.weapons.factory.WeaponFactory;
+import game.gui.HardGameController;
 
 public class Battle
 {
@@ -214,6 +215,7 @@ public class Battle
 			}
 
 			leastDangerLane.addTitan(this.getApproachingTitans().remove(0));
+			//HardGameController.spawnTitanLane4();
 		}
 
 		this.getLanes().add(leastDangerLane);
