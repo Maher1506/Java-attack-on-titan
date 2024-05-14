@@ -1,5 +1,4 @@
-package game.gui;
-	
+package game.gui;	
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -8,6 +7,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Main extends Application {
 	@Override
@@ -16,20 +24,15 @@ public class Main extends Application {
 			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("Scene1.fxml"));
 			
 			primaryStage.setTitle("AOT");
-			//primaryStage.setResizable(false);
+			primaryStage.setResizable(false);
 			
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			
-			/*primaryStage.setFullScreenExitHint("press q to exit");
-			primaryStage.setFullScreenExitKeyCombination(KeyCombination.valueOf("q"));
-			primaryStage.setFullScreen(true);*/
-			
-			
 
 			primaryStage.show();
-		} catch(Exception e) {
+		} 
+		catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
