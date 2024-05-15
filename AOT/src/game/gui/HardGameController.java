@@ -175,8 +175,9 @@ public class HardGameController {
 			
 		// Create a toggle group for radio buttons
         ToggleGroup toggleGroup = new ToggleGroup();
-
+        
         // Create radio buttons
+       
         RadioButton radioButton1 = new RadioButton("Lane 1");
         radioButton1.setToggleGroup(toggleGroup);
         radioButton1.setSelected(true); // Select the first option by default
@@ -207,10 +208,10 @@ public class HardGameController {
 					spawnWeapon(weapon0Box, sourceBtn, 0);
 				} catch (InsufficientResourcesException e1) {
 					// TODO Auto-generated catch block
-					showPopup();
+					showResourcesPopup();
 				} catch (InvalidLaneException e1) {
 					// TODO Auto-generated catch block
-					showPopup();
+					showLanePopup();
 				}
     		}
     		else if(radioButton2.isSelected())
@@ -219,10 +220,10 @@ public class HardGameController {
 					spawnWeapon(weapon1Box, sourceBtn, 1);
 				} catch (InsufficientResourcesException e1) {
 					// TODO Auto-generated catch block
-					showPopup();
+					showResourcesPopup();
 				} catch (InvalidLaneException e1) {
 					// TODO Auto-generated catch block
-					showPopup();
+					showLanePopup();
 				}
     		}
     		else if(radioButton3.isSelected())
@@ -231,10 +232,10 @@ public class HardGameController {
 					spawnWeapon(weapon2Box, sourceBtn, 2);
 				} catch (InsufficientResourcesException e1) {
 					// TODO Auto-generated catch block
-					showPopup();
+					showResourcesPopup();
 				} catch (InvalidLaneException e1) {
 					// TODO Auto-generated catch block
-					showPopup();
+					showLanePopup();
 				}
     		}
     		else if(radioButton4.isSelected())
@@ -243,10 +244,10 @@ public class HardGameController {
 					spawnWeapon(weapon3Box, sourceBtn, 3);
 				} catch (InsufficientResourcesException e1) {
 					// TODO Auto-generated catch block
-					showPopup();
+					showResourcesPopup();
 				} catch (InvalidLaneException e1) {
 					// TODO Auto-generated catch block
-					showPopup();
+					showLanePopup();
 				}
     		}
     		else if(radioButton5.isSelected())
@@ -255,10 +256,10 @@ public class HardGameController {
 					spawnWeapon(weapon4Box, sourceBtn, 4);
 				} catch (InsufficientResourcesException e1) {
 					// TODO Auto-generated catch block
-					showPopup();
+					showResourcesPopup();
 				} catch (InvalidLaneException e1) {
 					// TODO Auto-generated catch block
-					showPopup();
+					showLanePopup();
 				}
     		}
             ((Stage) okButton.getScene().getWindow()).close();
@@ -280,7 +281,7 @@ public class HardGameController {
         alert.showAndWait();
 	}
 	//POPUPS FOR GAME EXCEPTIONS
-	private void showPopup() {
+	private void showResourcesPopup() {
         
 		Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle("Insufficient Resources");
@@ -288,28 +289,24 @@ public class HardGameController {
         alert.setContentText("You do not have enough resources to purchase");
         alert.showAndWait();
     }
+	private void showLanePopup() 
+	{
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Invalid Lane");
+        alert.setHeaderText(null);
+        alert.setContentText("This lane is destroyed");
+        alert.showAndWait();
+    }
 	//PASS TURN
 	public void passTurn() throws IOException
 	{
-		if(!b.isGameOver())
-		{
-			b.passTurn();
-			updateGUI();
-		}
-		else
-		{
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("GameOver.fxml"));
-	        Parent gameOverRoot = loader.load();
-	        Scene gameOverScene = new Scene(gameOverRoot);
-	        Stage primaryStage = (Stage) scoreLabel.getScene().getWindow(); // Assuming scoreLabel is in your scene
-	        primaryStage.setScene(gameOverScene);
-	        primaryStage.show();
-		}
+		b.passTurn();
+		updateGUI();
 	}
 	//SPAWNING TITANS
-	public void spawnTitanLane0() {
+	public void spawnTitan(Pane container) {
 		
-		for(Lane lane:b.getOriginalLanes())
+		/*for(Lane lane:b.getOriginalLanes())
 		{
 			for(Titan titan : lane.getTitans()) {
 				if(titan instanceof PureTitan)
@@ -367,77 +364,24 @@ public class HardGameController {
 				}
 			}
 			
-		}
-        
-		
-		
+		}*/
 		// Create a new Circle object
         Circle circle = new Circle(15, Color.RED); // Radius = 50, Color = Red
         
         // Set the position of the circle within the containerPane
-        double xCoordinate = lane0Box.getWidth() - circle.getRadius(); // Calculate x-coordinate
-        double yCoordinate = lane0Box.getHeight() / 2.0; // Set y-coordinate to the middle of the pane
+        double xCoordinate = container.getWidth() - circle.getRadius(); // Calculate x-coordinate
+        double yCoordinate = container.getHeight() / 2.0; // Set y-coordinate to the middle of the pane
         circle.setLayoutX(xCoordinate + 1000); // Set x-coordinate
         circle.setLayoutY(yCoordinate + 40); // Set y-coordinate
         
         // Add the circle to the containerPane's children
-        lane0Box.getChildren().add(circle);
-    }
-	public void spawnTitanLane1() {
-        // Create a new Circle object
-        Circle circle = new Circle(15, Color.RED); // Radius = 50, Color = Red
-        
-        // Set the position of the circle within the containerPane
-        double xCoordinate = lane1Box.getWidth() - circle.getRadius(); // Calculate x-coordinate
-        double yCoordinate = lane1Box.getHeight() / 2.0; // Set y-coordinate to the middle of the pane
-        circle.setLayoutX(xCoordinate + 75); // Set x-coordinate
-        circle.setLayoutY(yCoordinate + 40); // Set y-coordinate
-        
-        // Add the circle to the containerPane's children
-        lane1Box.getChildren().add(circle);
-    }
-	public void spawnTitanLane2() {
-        // Create a new Circle object
-        Circle circle = new Circle(15, Color.RED); // Radius = 50, Color = Red
-        
-        // Set the position of the circle within the containerPane
-        double xCoordinate = lane2Box.getWidth() - circle.getRadius(); // Calculate x-coordinate
-        double yCoordinate = lane2Box.getHeight() / 2.0; // Set y-coordinate to the middle of the pane
-        circle.setLayoutX(xCoordinate + 75); // Set x-coordinate
-        circle.setLayoutY(yCoordinate + 40); // Set y-coordinate
-        
-        // Add the circle to the containerPane's children
-        lane2Box.getChildren().add(circle);
-    }
-	public void spawnTitanLane3() {
-        // Create a new Circle object
-        Circle circle = new Circle(15, Color.RED); // Radius = 50, Color = Red
-        
-        // Set the position of the circle within the containerPane
-        double xCoordinate = lane3Box.getWidth() - circle.getRadius(); // Calculate x-coordinate
-        double yCoordinate = lane3Box.getHeight() / 2.0; // Set y-coordinate to the middle of the pane
-        circle.setLayoutX(xCoordinate + 75); // Set x-coordinate
-        circle.setLayoutY(yCoordinate + 40); // Set y-coordinate
-        
-        // Add the circle to the containerPane's children
-        lane3Box.getChildren().add(circle);
-    }
-	public void spawnTitanLane4() {
-        // Create a new Circle object
-        Circle circle = new Circle(15, Color.RED); // Radius = 50, Color = Red
-        
-        // Set the position of the circle within the containerPane
-        double xCoordinate = lane4Box.getWidth() - circle.getRadius(); // Calculate x-coordinate
-        double yCoordinate = lane4Box.getHeight() / 2.0; // Set y-coordinate to the middle of the pane
-        circle.setLayoutX(xCoordinate + 75); // Set x-coordinate
-        circle.setLayoutY(yCoordinate + 40); // Set y-coordinate
-        
-        // Add the circle to the containerPane's children
-        lane4Box.getChildren().add(circle);
+        container.getChildren().add(circle);
     }
 	//UPDATING UI
 	private void updateGUI()
 	{
+		updateTitans();
+		
 		updateScore();
 		updateTurn();
 		updatePhase();
@@ -480,6 +424,36 @@ public class HardGameController {
 	{
 		int resources = b.getResourcesGathered();
 		resourcesLabel.setText("Resources: " + Integer.toString(resources));
+	}
+	private void updateTitans()
+	{
+		for(Lane lane : b.getOriginalLanes())
+		{
+			for(Titan titan : lane.getTitans())
+			{
+				if(lane == b.getOriginalLanes().get(0))
+				{
+					titan.getDistance();
+					spawnTitan(lane0Box);
+				}
+				else if(lane == b.getOriginalLanes().get(1))
+				{
+					spawnTitan(lane1Box);
+				}
+				else if(lane == b.getOriginalLanes().get(2))
+				{
+					spawnTitan(lane2Box);
+				}
+				else if(lane == b.getOriginalLanes().get(3))
+				{
+					spawnTitan(lane3Box);
+				}
+				else if(lane == b.getOriginalLanes().get(4))
+				{
+					spawnTitan(lane4Box);
+				}
+			}
+		}
 	}
 	
 	public void startGameAction(ActionEvent e) throws IOException

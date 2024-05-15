@@ -21,7 +21,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("Scene1.fxml"));
+			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("HardGame.fxml"));
 			
 			primaryStage.setTitle("AOT");
 			primaryStage.setResizable(false);
