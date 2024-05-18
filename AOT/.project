@@ -20,4 +20,16 @@
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/game/gui/images/Screenshot 2024-05-17 205805.png</name>
+			<type>1</type>
+			<location>C:/Users/Abdelrahman Maher/Pictures/Screenshots/Screenshot 2024-05-17 205805.png</location>
+		</link>
+		<link>
+			<name>src/game/gui/images/download.jpg</name>
+			<type>1</type>
+			<location>C:/Users/Abdelrahman Maher/Pictures/download.jpg</location>
+		</link>
+	</linkedResources>
 </projectDescription>

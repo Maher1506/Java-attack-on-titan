@@ -51,13 +51,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class HardGameController {
+public class EasyGameController {
 	
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
 	
-	private Battle b = new Battle(1, 0, 99, 5, 125);
+	private Battle b = new Battle(1, 0, 99, 3, 250);
 	
 	//UI Labels
 	@FXML
@@ -76,10 +76,6 @@ public class HardGameController {
 	private Pane weapon1Box;
 	@FXML
 	private Pane weapon2Box;
-	@FXML
-	private Pane weapon3Box;
-	@FXML
-	private Pane weapon4Box;
 		
 	//Titan spawn location hBoxes
 	@FXML
@@ -88,10 +84,6 @@ public class HardGameController {
     private Pane lane1Box;
 	@FXML
     private Pane lane2Box;
-	@FXML
-    private Pane lane3Box;
-	@FXML
-    private Pane lane4Box;
 	
 	//WEAPON SHOP BTNS
 	@FXML
@@ -110,10 +102,6 @@ public class HardGameController {
 	private Label lane1DangerLevel;
 	@FXML
 	private Label lane2DangerLevel;
-	@FXML
-	private Label lane3DangerLevel;
-	@FXML
-	private Label lane4DangerLevel;
 	
 	//LANE WALL HEALTH LABELS
 	@FXML
@@ -122,10 +110,6 @@ public class HardGameController {
 	private Label lane1Health;
 	@FXML
 	private Label lane2Health;
-	@FXML
-	private Label lane3Health;
-	@FXML
-	private Label lane4Health;
 	
 	//IMAGES FOR DISPLAYING LANE IS LOST
 	@FXML
@@ -134,10 +118,6 @@ public class HardGameController {
 	private ImageView lane1Image;
 	@FXML
 	private ImageView lane2Image;
-	@FXML
-	private ImageView lane3Image;
-	@FXML
-	private ImageView lane4Image;
 	
 	//LANE WALL IMAGES
 	@FXML
@@ -146,16 +126,12 @@ public class HardGameController {
 	private ImageView lane1WallImage;
 	@FXML
 	private ImageView lane2WallImage;
-	@FXML
-	private ImageView lane3WallImage;
-	@FXML
-	private ImageView lane4WallImage;
-		
+	
 	//GRID PANE FOR SPAWNING TITANS IN
 	@FXML
 	private GridPane gridPane;
 	
-	public HardGameController() throws IOException
+	public EasyGameController() throws IOException
 	{
 
 	}
@@ -232,15 +208,10 @@ public class HardGameController {
         RadioButton radioButton3 = new RadioButton("Lane 3");
         radioButton3.setToggleGroup(toggleGroup);
 
-        RadioButton radioButton4 = new RadioButton("Lane 4");
-        radioButton4.setToggleGroup(toggleGroup);
-
-        RadioButton radioButton5 = new RadioButton("Lane 5");
-        radioButton5.setToggleGroup(toggleGroup);
-        
+               
         // Add radio buttons to a VBox
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(radioButton1, radioButton2, radioButton3, radioButton4, radioButton5);
+        vBox.getChildren().addAll(radioButton1, radioButton2, radioButton3);
 
         // Create an "OK" button
         Button okButton = new Button("OK");
@@ -282,30 +253,7 @@ public class HardGameController {
 					showLanePopup();
 				}
     		}
-    		else if(radioButton4.isSelected())
-    		{
-    			try {
-					spawnWeapon(weapon3Box, sourceBtn, 3, e);
-				} catch (InsufficientResourcesException e1) {
-					// TODO Auto-generated catch block
-					showResourcesPopup();
-				} catch (InvalidLaneException e1) {
-					// TODO Auto-generated catch block
-					showLanePopup();
-				}
-    		}
-    		else if(radioButton5.isSelected())
-    		{
-    			try {
-					spawnWeapon(weapon4Box, sourceBtn, 4, e);
-				} catch (InsufficientResourcesException e1) {
-					// TODO Auto-generated catch block
-					showResourcesPopup();
-				} catch (InvalidLaneException e1) {
-					// TODO Auto-generated catch block
-					showLanePopup();
-				}
-    		}
+    		
             ((Stage) okButton.getScene().getWindow()).close();
         });
 
@@ -438,17 +386,11 @@ public class HardGameController {
 		Tooltip lane1ToolTip = new Tooltip(lane1Description);
         Tooltip.install(lane1Health, lane1ToolTip);
         
-        String lane2Description = "Lane: 1" + generateAllItemsInLane(b.getOriginalLanes().get(2));
+        String lane2Description = "Lane: 3" + generateAllItemsInLane(b.getOriginalLanes().get(2));
 		Tooltip lane2ToolTip = new Tooltip(lane2Description);
         Tooltip.install(lane2Health, lane2ToolTip);
         
-        String lane3Description = "Lane: 1" + generateAllItemsInLane(b.getOriginalLanes().get(3));
-		Tooltip lane3ToolTip = new Tooltip(lane3Description);
-        Tooltip.install(lane3Health, lane3ToolTip);
         
-        String lane4Description = "Lane: 1" + generateAllItemsInLane(b.getOriginalLanes().get(4));
-		Tooltip lane4ToolTip = new Tooltip(lane4Description);
-        Tooltip.install(lane4Health, lane4ToolTip);
 	}
 	private String generateAllItemsInLane(Lane lane)
 	{
@@ -530,14 +472,7 @@ public class HardGameController {
 				{
 					lane2Image.setVisible(true);
 				}
-				else if(b.getOriginalLanes().get(3) == lane)
-				{
-					lane3Image.setVisible(true);
-				}
-				else if(b.getOriginalLanes().get(4) == lane)
-				{
-					lane4Image.setVisible(true);
-				}
+				
 			}
 		}
 		
@@ -547,17 +482,14 @@ public class HardGameController {
 		lane0Health.setText("Health: " + Integer.toString(b.getOriginalLanes().get(0).getLaneWall().getCurrentHealth()));
 		lane1Health.setText("Health: " + Integer.toString(b.getOriginalLanes().get(1).getLaneWall().getCurrentHealth()));
 		lane2Health.setText("Health: " + Integer.toString(b.getOriginalLanes().get(2).getLaneWall().getCurrentHealth()));
-		lane3Health.setText("Health: " + Integer.toString(b.getOriginalLanes().get(3).getLaneWall().getCurrentHealth()));
-		lane4Health.setText("Health: " + Integer.toString(b.getOriginalLanes().get(4).getLaneWall().getCurrentHealth()));
+		
 	}
 	private void updateDangerLevels()
 	{
 		lane0DangerLevel.setText("Danger level: " + Integer.toString(b.getOriginalLanes().get(0).getDangerLevel()));
 		lane1DangerLevel.setText("Danger level: " + Integer.toString(b.getOriginalLanes().get(1).getDangerLevel()));
 		lane2DangerLevel.setText("Danger level: " + Integer.toString(b.getOriginalLanes().get(2).getDangerLevel()));
-		lane3DangerLevel.setText("Danger level: " + Integer.toString(b.getOriginalLanes().get(3).getDangerLevel()));
-		lane4DangerLevel.setText("Danger level: " + Integer.toString(b.getOriginalLanes().get(4).getDangerLevel()));
-	}
+		}
 	private void updateScore()
 	{
 		int score = b.getScore();
@@ -598,14 +530,7 @@ public class HardGameController {
 				{
 					spawnTitan(lane2Box, titan, titan.getDistance(), 2);
 				}
-				else if(lane == b.getOriginalLanes().get(3))
-				{
-					spawnTitan(lane3Box, titan, titan.getDistance(), 3);
-				}
-				else if(lane == b.getOriginalLanes().get(4))
-				{
-					spawnTitan(lane4Box, titan, titan.getDistance(), 4);
-				}
+				
 			}
 		}
 	}

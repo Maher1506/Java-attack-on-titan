@@ -19,12 +19,12 @@
                   <Font size="21.0" />
                </font>
             </Button>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Game Difficulty" textAlignment="CENTER">
+            <Text fill="#00ff11" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Difficulty" textAlignment="CENTER">
                <font>
                   <Font size="21.0" />
                </font>
             </Text>
-            <RadioButton fx:id="easyBtn" mnemonicParsing="false" selected="true" text="Easy">
+            <RadioButton fx:id="easyBtn" mnemonicParsing="false" selected="true" text="Easy" textFill="#00ff11">
                <font>
                   <Font size="16.0" />
                </font>
@@ -32,7 +32,7 @@
                   <ToggleGroup fx:id="Difficulty" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="hardBtn" layoutX="280.0" layoutY="246.0" mnemonicParsing="false" text="Hard" toggleGroup="$Difficulty">
+            <RadioButton fx:id="hardBtn" layoutX="280.0" layoutY="246.0" mnemonicParsing="false" text="Hard" textFill="#26ff00" toggleGroup="$Difficulty">
                <font>
                   <Font size="16.0" />
                </font>
@@ -46,7 +46,7 @@
    <bottom>
       <HBox alignment="TOP_CENTER" prefHeight="111.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Instructions: Tower defense (TD) is a subgenre of strategy games where the goal is to defend a player's territories or possessions by obstructing the enemy attackers or by stopping enemies from reaching the exits, usually achieved by placing defensive structures on or along their path of attack." textAlignment="CENTER" wrappingWidth="300.0" />
+            <Text fill="#00ff11" strokeType="OUTSIDE" strokeWidth="0.0" text="Instructions: Tower defense (TD) is a subgenre of strategy games where the goal is to defend a player's territories or possessions by obstructing the enemy attackers or by stopping enemies from reaching the exits, usually achieved by placing defensive structures on or along their path of attack." textAlignment="CENTER" wrappingWidth="300.0" />
          </children>
       </HBox>
    </bottom>
